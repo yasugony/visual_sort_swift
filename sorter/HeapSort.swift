@@ -40,10 +40,13 @@ open class HeapSort : BaseSorter {
                 }
 
                 dataArray[rootIndex] = dataArray[childIndex] //親を子で上書き
+                setCurrentDiffDataDump(rootIndex, childIndex, DumpType.I)
                 rootIndex = childIndex //元親データが 孫データといれかれれるまでループを繰り返す
             }
             //最終的に親の値が落ち着いたindexに戻す
             dataArray[rootIndex] = temp
+            setCurrentDiffDataDump(rootIndex, temp, DumpType.W)
+
         }
     }
 }
