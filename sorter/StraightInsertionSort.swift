@@ -7,11 +7,11 @@ open class StraightInsertionSort : BaseSorter {
 
             while jj > 0 && compare(hold, dataArray[jj - 1]) {
                 dataArray[jj] = dataArray[jj - 1]
-                setCurrentDataDump()
+                setCurrentDiffDataDump(jj, jj - 1, DumpType.I)
                 jj -= 1
             }
             dataArray[jj] = hold
-            setCurrentDataDump()
+            setCurrentDiffDataDump(jj, hold, DumpType.W)
         }
     }
 }

@@ -45,22 +45,23 @@ open class MergeSort : BaseSorter {
         while workIndex < workArray.count && bottomIndex <= lastTerm.last {
             if compare(dataArray[bottomIndex],workArray[workIndex]) {
                 dataArray[topIndex] = dataArray[bottomIndex]
+                setCurrentDiffDataDump(topIndex, bottomIndex, DumpType.I)
                 bottomIndex += 1
                 topIndex += 1
             } else {
                 dataArray[topIndex] = workArray[workIndex]
+                setCurrentDiffDataDump(topIndex, workArray[workIndex], DumpType.W)
                 workIndex += 1
                 topIndex += 1
             }
-            setCurrentDataDump()
         }
 
         //ワーク配列にあまりがある場合はお尻にコピーする
         while workIndex < workArray.count {
             dataArray[topIndex] = workArray[workIndex]
+            setCurrentDiffDataDump(topIndex, workArray[workIndex], DumpType.W)
             workIndex += 1
             topIndex += 1
-            setCurrentDataDump()
         }
     }
 }
