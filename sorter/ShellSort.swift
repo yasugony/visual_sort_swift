@@ -10,14 +10,13 @@ open class ShellSort : BaseSorter {
             for ii in h ... (dataArray.count - 1) {
                 var jj = ii
                 let hold = dataArray[jj]
-
                 while jj >= h && compare(hold, dataArray[jj - h]) {
                     dataArray[jj] = dataArray[jj - h]
-                    setCurrentDataDump()
+                    setCurrentDiffDataDump(jj, jj - h, DumpType.I)
                     jj -= h
                 }
                 dataArray[jj] = hold
-                setCurrentDataDump()
+                setCurrentDiffDataDump(jj, hold, DumpType.W)
             }
             h /= 3 //間隔をだんだん小さくしていく
         }

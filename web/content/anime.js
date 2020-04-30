@@ -1,20 +1,33 @@
-
-var x;
+﻿var x;
 var y;
 var r;
 var interval;
+var currentDatas = [];
 
 function draw() {
   const drawSecond = 1;
   
-  var ii = 0;
+  var currentDiffIndex = 0;
   interval = setInterval(function(){
-    var coordinates = datas[ii].split(',');
-    drawCore(coordinates)
-    if(ii == datas.length - 1){
+    if(currentDiffIndex == diffs.length){
       return;
     }
-    ii++;
+
+    //差分の値を入れ替え
+    var currentDiff = diffs[currentDiffIndex].split(',');
+
+    if(currentDiff[2] == 'X') {
+      var tempData = currentDatas[currentDiff[0]];
+      currentDatas[currentDiff[0]] = currentDatas[currentDiff[1]];
+      currentDatas[currentDiff[1]] = tempData;
+    } else if( currentDiff[2] == 'I') {
+      currentDatas[currentDiff[0]] = currentDatas[currentDiff[1]];
+    } else if( currentDiff[2] == 'W') {
+      currentDatas[currentDiff[0]] = currentDiff[1];
+    }
+
+    drawCore(currentDatas)
+    currentDiffIndex++;
   }, drawSecond);
 
    var clr = document.getElementById('clr');
@@ -29,8 +42,9 @@ function clears() {
       interval=null;
   }
 
-  var coordinates = datas[0].split(',');
-  drawCore(coordinates)
+  //データを初期化
+  currentDatas = datas.slice(0, datas.length);;
+  drawCore(currentDatas)
 
   var exe = document.getElementById('exe');
   exe.removeAttribute("disabled");
@@ -42,11 +56,10 @@ function clears() {
 
 function init(){
   var canvas = document.getElementById('canvas');
-  var ctx = canvas.getContext('2d');
-  var coordinates = datas[0].split(',');
-  x = canvas.width/coordinates.length;
+  var length = datas.length;
+  x = canvas.width/length;
   r = x/2;
-  y = canvas.height/coordinates.length;
+  y = canvas.height/length;
 
   clears()
 }
